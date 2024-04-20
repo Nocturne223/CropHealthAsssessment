@@ -143,6 +143,9 @@ def generate_svm_plot(prediction_probabilities, class_names):
     plt.grid(True, which='both', linestyle='--', linewidth=0.1)
     plt.legend(fontsize=12)
     
+    # Display the plot
+    st.pyplot()
+    
     # Add explanation
     explanation = """
     This plot shows the probability distribution across different classes.
@@ -151,9 +154,6 @@ def generate_svm_plot(prediction_probabilities, class_names):
     The class with the highest probability is the predicted disease or health status.
     """
     st.write(explanation)
-    
-    # Display the plot
-    st.pyplot()
 
 # Function to predict disease using CNN model
 def predict_disease(model, image_path, names):

@@ -257,7 +257,7 @@ with tab2:
                     display_recommendations(predicted_class)
                     
                     # Generate SVM plot
-                    st.write("Prediction Probabilities:")
+                    st.subheader("Prediction Probabilities:")
                     generate_svm_plot(prediction, predicted_class)
                     
                 elif select == 'Cauliflower':
@@ -276,7 +276,7 @@ with tab2:
                     display_recommendations(predicted_class)
                     
                     # Generate SVM plot
-                    st.write("Prediction Probabilities:")
+                    st.subheader("Prediction Probabilities:")
                     generate_svm_plot(prediction, predicted_class)
 
                 elif select == 'Sugarcane':
@@ -295,7 +295,7 @@ with tab2:
                     display_recommendations(predicted_class)
                     
                     # Generate SVM plot
-                    st.write("Prediction Probabilities:")
+                    st.subheader("Prediction Probabilities:")
                     generate_svm_plot(prediction, predicted_class)
 
                 elif select == 'Pepper':
@@ -314,7 +314,7 @@ with tab2:
                     display_recommendations(predicted_class)
                     
                     # Generate SVM plot
-                    st.write("Prediction Probabilities:")
+                    st.subheader("Prediction Probabilities:")
                     generate_svm_plot(prediction, predicted_class)
 
     elif pick == 'Upload':
@@ -331,7 +331,7 @@ with tab2:
                 st.write("Please upload an image!")
             else:
                 # Perform prediction and display results
-                st.write("Perform prediction and display results here...")
+                st.subheader("Prediction: ")
                 
                 if select == 'Lettuce':
                     # Predict Lettuce disease
@@ -349,7 +349,7 @@ with tab2:
                     display_recommendations(predicted_class)
                     
                     # Generate SVM plot
-                    st.write("Prediction Probabilities:")
+                    st.subheader("Prediction Probabilities:")
                     generate_svm_plot(prediction, predicted_class)
 
                 elif select == 'Cauliflower':
@@ -368,7 +368,7 @@ with tab2:
                     display_recommendations(predicted_class)
                     
                     # Generate SVM plot
-                    st.write("Prediction Probabilities:")
+                    st.subheader("Prediction Probabilities:")
                     generate_svm_plot(prediction, predicted_class)
 
                 elif select == 'Sugarcane':
@@ -387,7 +387,7 @@ with tab2:
                     display_recommendations(predicted_class)
                     
                     # Generate SVM plot
-                    st.write("Prediction Probabilities:")
+                    st.subheader("Prediction Probabilities:")
                     generate_svm_plot(prediction, predicted_class)
 
                 elif select == 'Pepper':
@@ -406,7 +406,7 @@ with tab2:
                     display_recommendations(predicted_class)
                     
                     # Generate SVM plot
-                    st.write("Prediction Probabilities:")
+                    st.subheader("Prediction Probabilities:")
                     generate_svm_plot(prediction, predicted_class)
 
 with tab3:

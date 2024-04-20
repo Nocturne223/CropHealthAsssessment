@@ -118,6 +118,11 @@ recommendations = {
     # Add recommendations for other classes similarly
 }
 
+# Function to display recommendations and predicted class
+def display_recommendations(predicted_class):
+    st.subheader("Recommendations:")
+    for recommendation in recommendations.get(predicted_class, []):
+        st.write(recommendation)
 
 # Function to preprocess input image
 def preprocess_image(image_path):
@@ -196,7 +201,7 @@ with st.sidebar:
     # crop_type = st.sidebar.selectbox("Select Crop Type", ["Cauliflower", "Pepper", "Sugarcane", "Lettuce"], help="Choose the type of crop for analysis")
 
 # Main content
-tab1, tab2, tab3 = st.tabs(["Home", "Crop Health Assessment", "About Crop Health Assessment"])
+tab1, tab2, tab3 = st.tabs(["Home", "Crop Health Assessment", "Feedback"])
 
 with tab1:
     st.title("Welcome to Crop Health Assessment App",False)
@@ -252,6 +257,125 @@ with tab2:
             else:
                 # Perform prediction and display results
                 st.write("Perform prediction and display results here...")
+                
+                if select == 'Lettuce':
+                    # Predict Lettuce disease
+                    image_path = plantpic
+                    prediction, predicted_class = predict_disease(model1, image_path, Lettuce_names)
+                    pred1 = "Predicted Disease Class: " + predicted_class
+                    st.image(plantpic, pred1, use_column_width=True)
+
+                    # Generate and display recommendations
+                    input_text = "Lettuce " + predicted_class + ":"
+                    # generated_recommendations = generate_recommendations(input_text)
+                    # st.write(generated_recommendations)
+
+                    # Display specific recommendations for the predicted class
+                    display_recommendations(predicted_class)
+                    
+                    # Generate SVM plot
+                    generate_svm_plot(prediction, predicted_class)
+                    
+                    st.write(Lettuce_names)
+                    
+                    true_labels = ["lettuce_BacterialLeafSpot", "lettuce_BotrytisCrownRot", "lettuce_DownyMildew", "lettuce_Healthy"]  # True label for Lettuce
+                    predicted_labels = [predicted_class] * len(true_labels)  # Predicted label for Lettuce               
+                    
+                    # Add evaluation metrics display after generating SVM plot
+                    display_evaluation_metrics(true_labels, predicted_labels)
+                    
+                    st.write(true_labels)
+                    st.write(predicted_labels)
+                    
+
+                elif select == 'Cauliflower':
+                    # Predict Cauliflower disease
+                    image_path = plantpic
+                    prediction, predicted_class = predict_disease(model2, image_path, Cauliflower_names)
+                    pred2 = "Predicted Disease Class: " + predicted_class
+                    st.image(plantpic, pred2, use_column_width=True)
+
+                    # Generate and display recommendations
+                    input_text = "Cauliflower " + predicted_class + ":"
+                    # generated_recommendations = generate_recommendations(input_text)
+                    # st.write(generated_recommendations)
+
+                    # Display specific recommendations for the predicted class
+                    display_recommendations(predicted_class)
+                    
+                    # Generate SVM plot
+                    generate_svm_plot(prediction, predicted_class)
+                    
+                    st.write(Cauliflower_names)
+                    
+                    true_labels = ["cauliflower_BlackRot", "cauliflower_DownyMildew", "cauliflower_Healthy", "cauliflower_SoftRot"]  # True label for Cauliflower
+                    predicted_labels = [predicted_class] * len(true_labels)  # Predicted label for Cauliflower
+                    
+                    # Add evaluation metrics display after generating SVM plot
+                    display_evaluation_metrics(true_labels, predicted_labels)
+                    
+                    st.write(true_labels)
+                    st.write(predicted_labels)
+
+                elif select == 'Sugarcane':
+                    # Predict Sugarcane disease
+                    image_path = plantpic
+                    prediction, predicted_class = predict_disease(model3, image_path, Sugarcane_names)
+                    pred3 = "Predicted Disease Class: " + predicted_class
+                    st.image(plantpic, pred3, use_column_width=True)
+
+                    # Generate and display recommendations
+                    input_text = "Sugarcane " + predicted_class + ":"
+                    # generated_recommendations = generate_recommendations(input_text)
+                    # st.write(generated_recommendations)
+
+                    # Display specific recommendations for the predicted class
+                    display_recommendations(predicted_class)
+                    
+                    # Generate SVM plot
+                    generate_svm_plot(prediction, predicted_class)
+                    
+                    st.write(Sugarcane_names)
+                    
+                    true_labels = ["sugarcane_Healthy", "sugarcane_Mosaic", "sugarcane_RedRot", "sugarcane_Rust"]  # True label for Sugarcane
+                    predicted_labels = [predicted_class] * len(true_labels)  # Predicted label for Sugarcane
+                    
+                    # Add evaluation metrics display after generating SVM plot
+                    display_evaluation_metrics(true_labels, predicted_labels)
+                    
+                    st.write(true_labels)
+                    st.write(predicted_labels)
+
+                elif select == 'Pepper':
+                    # Predict Pepper disease
+                    image_path = plantpic
+                    prediction, predicted_class = predict_disease(model4, image_path, Pepper_names)
+                    pred4 = "Predicted Disease Class: " + predicted_class
+                    st.image(plantpic, pred4, use_column_width=True)
+
+                    # Generate and display recommendations
+                    input_text = "Pepper " + predicted_class + ":"
+                    # generated_recommendations = generate_recommendations(input_text)
+                    # st.write(generated_recommendations)
+
+                    # Display specific recommendations for the predicted class
+                    display_recommendations(predicted_class)
+                    
+                    # Generate SVM plot
+                    generate_svm_plot(prediction, predicted_class)
+                    
+                    st.write(Pepper_names)
+                    
+                    true_labels = ["pepper_Healthy", "pepper_CercosporaLeafSpot", "pepper_Fusarium", "pepper_Leaf_Curl"]  # True label for Pepper
+                    predicted_labels = [predicted_class] * len(true_labels)  # Predicted label for Pepper
+                    
+                    # Add evaluation metrics display after generating SVM plot
+                    display_evaluation_metrics(true_labels, predicted_labels)    
+                    true_labels = ["pepper_Healthy", "pepper_CercosporaLeafSpot", "pepper_Fusarium", "pepper_Leaf_Curl"]  # True label for Pepper
+                    predicted_labels = [predicted_class] * len(true_labels)  # Predicted label for Pepper
+                    
+                    # Generate SVM plot
+                    generate_svm_plot(prediction, predicted_class)
 
     elif pick == 'Upload':
         st.subheader("Upload Image File")

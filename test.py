@@ -6,6 +6,7 @@ import sklearn
  
 from PIL import Image
 from keras.models import load_model
+from sklearn.svm import SVC
 from sklearn.metrics import accuracy_score, precision_score, recall_score, f1_score
 
 # Load CNN Models

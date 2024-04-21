@@ -9,7 +9,7 @@ from keras.models import load_model
 from sklearn.svm import SVC
 from sklearn.metrics import accuracy_score, precision_score, recall_score, f1_score
 
-# Load CNN Models
+# Load Models
 model1 = load_model('official-models/LettuceModel.h5')  # saved model from training
 model2 = load_model('official-models/CauliflowerModel.h5')  # saved model from training
 model3 = load_model('official-models/SugarcaneModel-1.h5')  # saved model from training
@@ -156,7 +156,7 @@ def generate_svm_plot(prediction_probabilities, class_names):
     """
     st.write(explanation)
 
-# Function to predict disease using CNN model
+# Function to predict disease using Model
 def predict_disease(model, image_path, names):
     preprocessed_img = preprocess_image(image_path)
     prediction = model.predict(preprocessed_img)

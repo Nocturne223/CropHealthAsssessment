@@ -526,7 +526,7 @@ with tab2:
                     
                     recom = ""
                     
-                    for text in input_text:
+                    for text in recommendations(predicted_class):
                         recom += text + " "
                     
                     # Generate SVM plot

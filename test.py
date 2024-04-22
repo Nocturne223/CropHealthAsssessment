@@ -544,7 +544,7 @@ with tab2:
                     if send_email_button:
                         if user_email:
                         # Call the function to send the result to the provided email
-                            send_result_email(sender_email, sender_password, user_email, predicted_class, recommendation)
+                            send_result_email(sender_email, sender_password, user_email, predicted_class, recom)
                         else:
                             st.warning("Please enter the recipient email address.")
 

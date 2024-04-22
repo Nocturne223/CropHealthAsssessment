@@ -170,7 +170,7 @@ tab1, tab2, tab3 = st.tabs(["Dashboard", "Crop Health Assessment", "Feedback"])
 # Sidebar content
 with st.sidebar:
     st.subheader('Pages', divider='gray')
-    tab1 = st.tabs("Dashboard")
+    button1 = tab1
     
     st.subheader('About Us', divider='gray')
     st.info(

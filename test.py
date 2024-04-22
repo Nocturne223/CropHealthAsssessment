@@ -164,22 +164,16 @@ def predict_disease(model, image_path, names):
     disease_class = names[disease_index]  # Fetch the class name using the index
     return prediction, disease_class  # Return prediction along with disease class
 
+# Define the tab names
+tabs = ["Dashboard", "Crop Health Assessment", "Feedback"]
+
 # Sidebar content
 with st.sidebar:
     # Sidebar Page Navigation
-    st.subheader('Pages', divider='gray')
-    if st.sidebar.button("Dashboard"):
-        tab1 = True
-        tab2 = False
-        tab3 = False
-    if st.sidebar.button("Crop Health Assessment"):
-        tab1 = False
-        tab2 = True
-        tab3 = False
-    if st.sidebar.button("Feedback"):
-        tab1 = False
-        tab2 = False
-        tab3 = True
+    st.sidebar.subheader("Sidebar Navigation")
+    for tab in tabs:
+        if st.sidebar.button(tab):
+            st.experimental_set_query_params(tab=tab)
     
     # Authors
     st.subheader('About Us', divider='gray')
@@ -194,12 +188,20 @@ with st.sidebar:
         Axel Bert E. Ramos
         """
     )
-    
-# Main content
-tab1, tab2, tab3 = st.tabs(["Dashboard", "Crop Health Assessment", "Feedback"])
 
-with tab1:
-    st.title("Welcome to Crop Health Assessment App",False)
+
+# Main content
+selected_tab = st.experimental_get_query_params().get("tab", ["Dashboard"])[0]
+
+# Top navigation tabs
+top_nav = st.empty()
+for tab in tabs:
+    if top_nav.button(tab):
+        selected_tab = tab
+        st.experimental_set_query_params(tab=tab)
+
+if selected_tab == "Dashboard":
+    st.title("Welcome to Crop Health Assessment App", False)
     
     col1, col2 = st.columns(2)
     col1.image("screenshots/PPrediction1.jpeg")
@@ -230,7 +232,7 @@ with tab1:
         This app is developed by Christian Jerome S. Detuya, Albert James E. Mangcao, and Axel Bert E. Ramos as part of the Crop Health Assessment project.
     """)
 
-with tab2:
+elif selected_tab == "Crop Health Assessment":
     st.title("Crop Health Assessment")
 
     # selecting method for health assessment
@@ -404,8 +406,9 @@ with tab2:
                     # Generate SVM plot
                     st.subheader("Prediction Probabilities:")
                     generate_svm_plot(prediction, predicted_class)
+    pass
 
-with tab3:
+elif selected_tab == "Feedback":
     st.title("Feedback")
 
     st.subheader("Feedback Form")
@@ -418,6 +421,7 @@ with tab3:
             st.success("Thank you for your feedback! We'll use it to improve the app.")
         else:
             st.warning("Please provide feedback before submitting.")
+    pass
 
 # Footer
 st.markdown(

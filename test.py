@@ -169,6 +169,7 @@ tabs = ["Dashboard", "Crop Health Assessment", "Feedback"]
 
 # Sidebar content
 with st.sidebar:
+<<<<<<< HEAD
     # Sidebar Page Navigation
     st.sidebar.subheader("Sidebar Navigation")
     for tab in tabs:
@@ -176,6 +177,8 @@ with st.sidebar:
             st.experimental_set_query_params(tab=tab)
     
     # Authors
+=======
+>>>>>>> parent of bf14dbf (Sample UI Update)
     st.subheader('About Us', divider='gray')
     st.info(
         """

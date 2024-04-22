@@ -90,12 +90,12 @@ def send_result_email(sender_email, sender_password, user_email, predicted_class
         msg['Subject'] = "Crop Health Assessment Result"
         
         # Format recommendations as a string
-        recommendation_text = "\n".join(recommendations)
+        # recommendation_text = "\n".join(recommendations)
 
         # Email body
         body = f"Predicted Disease Class: {predicted_class}\n\n"
         if recommendations:
-            body += f"Recommendations:\n{recommendation_text}"
+            body += f"Recommendations:\n{recommendations}"
         else:
             body += "No specific recommendations available for this predicted class."
             
@@ -535,9 +535,6 @@ with tab2:
 
                     # Display specific recommendations for the predicted class
                     display_recommendations(predicted_class)
-                    
-                    # recommendation = list(display_recommendations(predicted_class))
-                    
                     
                     # Get recommendations as a string
                     recommendations_string = get_recommendations_as_string(predicted_class)

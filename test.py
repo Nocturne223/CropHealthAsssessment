@@ -525,6 +525,9 @@ with tab2:
                     st.subheader("Prediction Probabilities:")
                     generate_svm_plot(prediction, predicted_class)
                     
+                    st.write(predicted_class)
+                    st.write(recommendation)
+                    
                     # Add email input and send button
                     st.subheader("Send Result to Email")
                     user_email = st.text_input("Enter recipient email address", help="Enter the email address where you want to receive the result.")

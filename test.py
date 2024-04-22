@@ -169,9 +169,27 @@ tab1, tab2, tab3 = st.tabs(["Dashboard", "Crop Health Assessment", "Feedback"])
 
 # Sidebar content
 with st.sidebar:
-    st.subheader('Pages', divider='gray')
-    button1 = tab1
-    
+    st.sidebar.subheader("Help & FAQ", divider='gray')
+
+    # Help section
+    st.sidebar.subheader("Help")
+    st.sidebar.write("Welcome to the Help & FAQ section. If you have any questions or need assistance, please refer to the FAQs below or contact us for support.")
+
+    # FAQ section
+    st.sidebar.subheader("FAQs")
+
+    # FAQ 1
+    st.sidebar.write("Q: How do I use the app?")
+    st.sidebar.write("A: To use the app, navigate to the 'Crop Health Assessment' tab and follow the instructions provided.")
+
+    # FAQ 2
+    st.sidebar.write("Q: What crops does the app support?")
+    st.sidebar.write("A: The app currently supports lettuce, cauliflower, sugarcane, and pepper.")
+
+    # FAQ 3
+    st.sidebar.write("Q: How accurate are the predictions?")
+    st.sidebar.write("A: The accuracy of predictions depends on various factors, including the quality of input data and the performance of the underlying machine learning models.")
+
     st.subheader('About Us', divider='gray')
     st.info(
         """

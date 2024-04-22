@@ -520,7 +520,7 @@ with tab2:
                     input_text = "Cauliflower " + predicted_class + ":" 
 
                     # Display specific recommendations for the predicted class
-                    # display_recommendations(predicted_class)
+                    display_recommendations(predicted_class)
                     
                     # recommendation = list(display_recommendations(predicted_class))
                     

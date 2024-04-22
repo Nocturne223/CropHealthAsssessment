@@ -166,6 +166,10 @@ def predict_disease(model, image_path, names):
 
 # Sidebar content
 with st.sidebar:
+    # Main content
+    tab1, tab2, tab3 = st.sidebar.tabs(["Dashboard", "Crop Health Assessment", "Feedback"])
+    
+    # Authors
     st.subheader('About Us', divider='gray')
     st.info(
         """

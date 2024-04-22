@@ -172,7 +172,7 @@ with st.sidebar:
     # Sidebar Page Navigation
     st.sidebar.subheader("Sidebar Navigation")
     for tab in tabs:
-        if st.sidebar.button(tab):
+        if st.sidebar.button(tab, key=f"sidebar_{tab}"):
             st.experimental_set_query_params(tab=tab)
     
     # Authors
@@ -188,15 +188,14 @@ with st.sidebar:
         Axel Bert E. Ramos
         """
     )
-
-
+    
 # Main content
 selected_tab = st.experimental_get_query_params().get("tab", ["Dashboard"])[0]
 
 # Top navigation tabs
 top_nav = st.empty()
 for tab in tabs:
-    if top_nav.button(tab):
+    if top_nav.button(tab, key=f"top_nav_{tab}"):
         selected_tab = tab
         st.experimental_set_query_params(tab=tab)
 
@@ -406,7 +405,6 @@ elif selected_tab == "Crop Health Assessment":
                     # Generate SVM plot
                     st.subheader("Prediction Probabilities:")
                     generate_svm_plot(prediction, predicted_class)
-    pass
 
 elif selected_tab == "Feedback":
     st.title("Feedback")
@@ -421,7 +419,6 @@ elif selected_tab == "Feedback":
             st.success("Thank you for your feedback! We'll use it to improve the app.")
         else:
             st.warning("Please provide feedback before submitting.")
-    pass
 
 # Footer
 st.markdown(

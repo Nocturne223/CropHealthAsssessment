@@ -3,11 +3,15 @@ import streamlit as st
 import numpy as np
 import matplotlib.pyplot as plt
 import sklearn
+import smtplib
  
 from PIL import Image
 from keras.models import load_model
 from sklearn.svm import SVC
 from sklearn.metrics import accuracy_score, precision_score, recall_score, f1_score
+from email.mime.multipart import MIMEMultipart
+from email.mime.text import MIMEText
+
 
 # Load Models
 model1 = load_model('official-models/LettuceModel.h5')  # saved model from training
@@ -22,6 +26,38 @@ Sugarcane_names = ["sugarcane_Healthy", "sugarcane_Mosaic", "sugarcane_RedRot", 
 Pepper_names = ["pepper_Healthy", "pepper_CercosporaLeafSpot", "pepper_Fusarium", "pepper_Leaf_Curl"]
 
 folder_path = "saved_images"
+
+def send_feedback_email(feedback_text, rating, category):
+    # Email configuration
+    sender_email = "cha.devteam223@gmail.com"  # Your email address
+    sender_password = "touchmenot"   # Your email password
+    receiver_email = "nutcracker223@gmail.com"  # Receiver's email address
+
+    # Construct email message
+    message = MIMEMultipart()
+    message["From"] = sender_email
+    message["To"] = receiver_email
+    message["Subject"] = "Feedback from Crop Health Assessment App"
+
+    # Feedback content
+    feedback_content = f"""
+    Feedback: {feedback_text}
+    Rating: {rating}
+    Category: {category}
+    """
+
+    # Attach feedback content to the email body
+    message.attach(MIMEText(feedback_content, "plain"))
+
+    # Send email
+    try:
+        with smtplib.SMTP("smtp.gmail.com", 587) as server:
+            server.starttls()
+            server.login(sender_email, sender_password)
+            server.sendmail(sender_email, receiver_email, message.as_string())
+            print("Feedback email sent successfully!")
+    except Exception as e:
+        print(f"Error sending feedback email: {e}")
 
 # Define recommendations for each class
 recommendations = {
@@ -442,6 +478,9 @@ with tab3:
             # Optionally, you can log the feedback including text, rating, and category
             # Log feedback to database or file
             # Example: logger.log_feedback(feedback_text, rating, feedback_category)
+            
+            # Send feedback email
+            send_feedback_email(feedback_text, rating, feedback_category)
         else:
             st.warning("Please provide feedback before submitting.")
 

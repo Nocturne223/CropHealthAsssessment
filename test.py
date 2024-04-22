@@ -204,7 +204,8 @@ with st.sidebar:
     )
 
 with tab1:
-    st.title("Welcome to Crop Health Assessment App",False, divider='gray')
+    st.title("Welcome to Crop Health Assessment App",False)
+    st.subheader("", divider='gray')
     
     col1, col2 = st.columns(2)
     col1.image("screenshots/PPrediction1.jpeg")
@@ -236,14 +237,15 @@ with tab1:
     """)
 
 with tab2:
-    st.title("Crop Health Assessment", divider='gray')
+    st.title("Crop Health Assessment")
+    st.subheader("", divider='gray')
 
     # selecting method for health assessment
     st.subheader("SELECT A METHOD")
     pick = st.selectbox("Select Method", ('Upload', 'Camera'), label_visibility="hidden")
 
     if pick == 'Camera':
-        st.subheader("Camera Input")
+        st.subheader("Camera Input", divider='gray')
         plantpic = st.camera_input("Take a plant picture", label_visibility="hidden")
         
         st.subheader("Select A Plant")
@@ -327,7 +329,7 @@ with tab2:
                     generate_svm_plot(prediction, predicted_class)
 
     elif pick == 'Upload':
-        st.subheader("Upload Image File")
+        st.subheader("Upload Image File", divider='gray')
         plantpic = st.file_uploader("Upload an image", ['jpg', 'png', 'gif', 'webp', 'tiff', 'psd', 'raw', 'bmp', 'jfif'], False, label_visibility="hidden")
         
         st.subheader("Select A Plant")
@@ -411,8 +413,9 @@ with tab2:
                     generate_svm_plot(prediction, predicted_class)
 
 with tab3:
-    st.title("Feedback", divider='gray')
-
+    st.title("Feedback")
+    st.subheader("", divider='gray')
+    
     st.subheader("Feedback Form")
 
     # Feedback text area

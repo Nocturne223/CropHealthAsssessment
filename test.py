@@ -164,8 +164,14 @@ def predict_disease(model, image_path, names):
     disease_class = names[disease_index]  # Fetch the class name using the index
     return prediction, disease_class  # Return prediction along with disease class
 
+# Main content
+tab1, tab2, tab3 = st.tabs(["Dashboard", "Crop Health Assessment", "Feedback"])
+
 # Sidebar content
 with st.sidebar:
+    st.subheader('Pages', divider='gray')
+    tab1 = st.tabs("Dashboard")
+    
     st.subheader('About Us', divider='gray')
     st.info(
         """
@@ -178,9 +184,6 @@ with st.sidebar:
         Axel Bert E. Ramos
         """
     )
-
-# Main content
-tab1, tab2, tab3 = st.tabs(["Dashboard", "Crop Health Assessment", "Feedback"])
 
 with tab1:
     st.title("Welcome to Crop Health Assessment App",False)

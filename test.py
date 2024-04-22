@@ -374,7 +374,7 @@ with tab2:
                     generate_svm_plot(prediction, predicted_class)
 
     elif pick == 'Upload':
-        st.subheader("Upload Image File")
+        st.subheader("Upload Input")
         plantpic = st.file_uploader("Upload an image", ['jpg', 'png', 'gif', 'webp', 'tiff', 'psd', 'raw', 'bmp', 'jfif'], False, label_visibility="hidden")
         
         st.subheader("Select A Plant")

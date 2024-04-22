@@ -408,17 +408,17 @@ with tab2:
                     st.subheader("Prediction Probabilities:")
                     generate_svm_plot(prediction, predicted_class)
             
-                    # Add email input and send button
-                    st.subheader("Send Result to Email")
-                    user_email = st.text_input("Enter recipient email address", help="Enter the email address where you want to receive the result.")
-                    send_email_button = st.button("Send Result to Email")
+                # Add email input and send button
+                st.subheader("Send Result to Email")
+                user_email = st.text_input("Enter recipient email address", help="Enter the email address where you want to receive the result.")
+                send_email_button = st.button("Send Result to Email")
 
-                    if send_email_button:
-                        if user_email:
-                        # Call the function to send the result to the provided email
-                            send_result_email(sender_email, sender_password, user_email, predicted_class, recommendation)
-                        else:
-                            st.warning("Please enter the recipient email address.")    
+                if send_email_button:
+                    if user_email:
+                    # Call the function to send the result to the provided email
+                        send_result_email(sender_email, sender_password, user_email, predicted_class, recommendation)
+                    else:
+                        st.warning("Please enter the recipient email address.")    
 
     elif pick == 'Upload':
         st.subheader("Upload Input")
@@ -504,17 +504,17 @@ with tab2:
                     st.subheader("Prediction Probabilities:")
                     generate_svm_plot(prediction, predicted_class)
     
-                    # Add email input and send button
-                    st.subheader("Send Result to Email")
-                    user_email = st.text_input("Enter recipient email address", help="Enter the email address where you want to receive the result.")
-                    send_email_button = st.button("Send Result to Email")
+                # Add email input and send button
+                st.subheader("Send Result to Email")
+                user_email = st.text_input("Enter recipient email address", help="Enter the email address where you want to receive the result.")
+                send_email_button = st.button("Send Result to Email")
 
-                    if send_email_button:
-                        if user_email:
-                        # Call the function to send the result to the provided email
-                            send_result_email(sender_email, sender_password, user_email, predicted_class, recommendation)
-                        else:
-                            st.warning("Please enter the recipient email address.")   
+                if send_email_button:
+                    if user_email:
+                    # Call the function to send the result to the provided email
+                        send_result_email(sender_email, sender_password, user_email, predicted_class, recommendation)
+                    else:
+                        st.warning("Please enter the recipient email address.")   
 
 # Define feedback categories
 feedback_categories = ["User Experience", "Feature Requests", "Bug Reports", "General Comments"]

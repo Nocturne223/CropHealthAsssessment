@@ -70,7 +70,7 @@ def send_feedback_email(sender_email, sender_password, recipient_email, feedback
     server.quit()
 
 # Define result email function
-def send_result_email(sender_email, sender_password, user_email, predicted_class, recommendation):
+def send_result_email(sender_email, sender_password, user_email, predicted_class, recommendations):
     # Email configurations
     smtp_server = "smtp-mail.outlook.com"
     smtp_port = 587
@@ -79,44 +79,37 @@ def send_result_email(sender_email, sender_password, user_email, predicted_class
     server = smtplib.SMTP(smtp_server, smtp_port)
     server.starttls()
     
-    # Log in to the email account
-    server.login(sender_email, sender_password)
-    
-    # Construct the email message
-    msg = MIMEMultipart()
-    msg['From'] = sender_email
-    msg['To'] = user_email
-    msg['Subject'] = "Crop Health Assessment Result"
-    
-    # Format recommendations as a string
-    recommendation_text = "\n".join(recommendations)
-
-    # Email body
-    body = f"Predicted Disease Class: {predicted_class}\n\n"
-    if recommendations:
-        body += f"Recommendations:\n{recommendation_text}"
-    else:
-        body += "No specific recommendations available for this predicted class."
+    try:
+        # Log in to the email account
+        server.login(sender_email, sender_password)
         
-    msg.attach(MIMEText(body, 'plain'))
-    
-    # Send the email
-    server.send_message(msg)
-    
-    # try:
-    #     server = smtplib.SMTP(smtp_server, smtp_port)
-    #     server.starttls()
-    #     server.login(sender_email, sender_password)
-    #     text = msg.as_string()
-    #     server.sendmail(sender_email, user_email, text)
-    #     server.quit()
-    #     print("Email sent successfully!")
-    # except Exception as e:
-    #     print("Failed to send email.")
-    #     print(e)
-    
-    # Close the connection to the SMTP server
-    server.quit()
+        # Construct the email message
+        msg = MIMEMultipart()
+        msg['From'] = sender_email
+        msg['To'] = user_email
+        msg['Subject'] = "Crop Health Assessment Result"
+        
+        # Format recommendations as a string
+        recommendation_text = "\n".join(recommendations)
+
+        # Email body
+        body = f"Predicted Disease Class: {predicted_class}\n\n"
+        if recommendations:
+            body += f"Recommendations:\n{recommendation_text}"
+        else:
+            body += "No specific recommendations available for this predicted class."
+            
+        msg.attach(MIMEText(body, 'plain'))
+        
+        # Send the email
+        server.send_message(msg)
+        st.success("Result sent successfully!")
+    except Exception as e:
+        st.error("Failed to send result email.")
+        st.error(str(e))
+    finally:
+        # Close the connection to the SMTP server
+        server.quit()
 
 # Define recommendations for each class
 recommendations = {
@@ -529,7 +522,7 @@ with tab2:
                     # Display specific recommendations for the predicted class
                     display_recommendations(predicted_class)
                     
-                    recommendation = recommendations.get(predicted_class, [])
+                    recommendation = list(display_recommendations(predicted_class))
                     
                     # Generate SVM plot
                     st.subheader("Prediction Probabilities:")
@@ -538,7 +531,7 @@ with tab2:
                     st.write(predicted_class)
                     st.write(recommendation)
                     
-                    # Add email input and send button
+                     # Add email input and send button
                     st.subheader("Send Result to Email")
                     user_email = st.text_input("Enter recipient email address", help="Enter the email address where you want to receive the result.")
                     send_email_button = st.button("Send Result to Email")

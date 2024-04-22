@@ -116,7 +116,7 @@ recommendations = {
         "Maintain proper spacing between plants to improve air circulation and reduce humidity levels around plants.",
         "Apply neem oil or horticultural oils to the foliage according to label instructions, as they may help suppress viral vectors like aphids."
     ]
-    # Add recommendations for other classes similarly
+    # Add recommendations for other classes similarly for future developments
 }
 
 # Function to display recommendations and predicted class
@@ -185,7 +185,7 @@ with st.sidebar:
     # crop_type = st.sidebar.selectbox("Select Crop Type", ["Cauliflower", "Pepper", "Sugarcane", "Lettuce"], help="Choose the type of crop for analysis")
 
 # Main content
-tab1, tab2, tab3 = st.tabs(["Home", "Crop Health Assessment", "Feedback"])
+tab1, tab2, tab3 = st.tabs(["Dashboard", "Crop Health Assessment", "Feedback"])
 
 with tab1:
     st.title("Welcome to Crop Health Assessment App",False)
@@ -250,9 +250,7 @@ with tab2:
                     st.image(plantpic, pred1, use_column_width=True)
 
                     # Generate and display recommendations
-                    input_text = "Lettuce " + predicted_class + ":"
-                    # generated_recommendations = generate_recommendations(input_text)
-                    # st.write(generated_recommendations)
+                    input_text = "Lettuce " + predicted_class + ":" 
 
                     # Display specific recommendations for the predicted class
                     display_recommendations(predicted_class)
@@ -269,9 +267,7 @@ with tab2:
                     st.image(plantpic, pred2, use_column_width=True)
 
                     # Generate and display recommendations
-                    input_text = "Cauliflower " + predicted_class + ":"
-                    # generated_recommendations = generate_recommendations(input_text)
-                    # st.write(generated_recommendations)
+                    input_text = "Cauliflower " + predicted_class + ":" 
 
                     # Display specific recommendations for the predicted class
                     display_recommendations(predicted_class)
@@ -288,9 +284,7 @@ with tab2:
                     st.image(plantpic, pred3, use_column_width=True)
 
                     # Generate and display recommendations
-                    input_text = "Sugarcane " + predicted_class + ":"
-                    # generated_recommendations = generate_recommendations(input_text)
-                    # st.write(generated_recommendations)
+                    input_text = "Sugarcane " + predicted_class + ":" 
 
                     # Display specific recommendations for the predicted class
                     display_recommendations(predicted_class)
@@ -307,9 +301,7 @@ with tab2:
                     st.image(plantpic, pred4, use_column_width=True)
 
                     # Generate and display recommendations
-                    input_text = "Pepper " + predicted_class + ":"
-                    # generated_recommendations = generate_recommendations(input_text)
-                    # st.write(generated_recommendations)
+                    input_text = "Pepper " + predicted_class + ":" 
 
                     # Display specific recommendations for the predicted class
                     display_recommendations(predicted_class)
@@ -343,8 +335,6 @@ with tab2:
 
                     # Generate and display recommendations
                     input_text = "Lettuce " + predicted_class + ":"
-                    # generated_recommendations = generate_recommendations(input_text)
-                    # st.write(generated_recommendations)
 
                     # Display specific recommendations for the predicted class
                     display_recommendations(predicted_class)
@@ -362,8 +352,6 @@ with tab2:
 
                     # Generate and display recommendations
                     input_text = "Cauliflower " + predicted_class + ":"
-                    # generated_recommendations = generate_recommendations(input_text)
-                    # st.write(generated_recommendations)
 
                     # Display specific recommendations for the predicted class
                     display_recommendations(predicted_class)
@@ -380,9 +368,7 @@ with tab2:
                     st.image(plantpic, pred3, use_column_width=True)
 
                     # Generate and display recommendations
-                    input_text = "Sugarcane " + predicted_class + ":"
-                    # generated_recommendations = generate_recommendations(input_text)
-                    # st.write(generated_recommendations)
+                    input_text = "Sugarcane " + predicted_class + ":" 
 
                     # Display specific recommendations for the predicted class
                     display_recommendations(predicted_class)
@@ -399,9 +385,7 @@ with tab2:
                     st.image(plantpic, pred4, use_column_width=True)
 
                     # Generate and display recommendations
-                    input_text = "Pepper " + predicted_class + ":"
-                    # generated_recommendations = generate_recommendations(input_text)
-                    # st.write(generated_recommendations)
+                    input_text = "Pepper " + predicted_class + ":" 
 
                     # Display specific recommendations for the predicted class
                     display_recommendations(predicted_class)

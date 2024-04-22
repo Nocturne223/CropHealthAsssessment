@@ -552,11 +552,12 @@ with tab2:
                     send_email_button = st.button("Send Result to Email")
 
                     if send_email_button:
-                        if user_email:
-                        # Call the function to send the result to the provided email
-                            send_result_email(sender_email, sender_password, user_email, predicted_class, recommendations_string)
-                        else:
+                        if not user_email:
                             st.warning("Please enter the recipient email address.")
+                        else:
+                            # Call the function to send the result to the provided email
+                            send_result_email(sender_email, sender_password, user_email, predicted_class, recommendations_string)
+                            
 
                 elif select == 'Sugarcane':
                     # Predict Sugarcane disease

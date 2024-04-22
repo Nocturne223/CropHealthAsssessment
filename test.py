@@ -208,9 +208,9 @@ recommendations = {
 
 # Function to display recommendations and predicted class
 def display_recommendations(predicted_class):
-    recommendations_list = recommendations.get(predicted_class, [])
-    recommendations_text = "\n".join(recommendations_list)
-    return recommendations_text
+    st.subheader("Recommendations:")
+    for recommendation in recommendations.get(predicted_class, []):
+        st.write(recommendation)
 
 # Function to preprocess input image
 def preprocess_image(image_path):
@@ -387,7 +387,7 @@ with tab2:
                     input_text = "Cauliflower " + predicted_class + ":" 
 
                     # Display specific recommendations for the predicted class
-                    recommendation = display_recommendations(predicted_class)
+                    recommendation = list(display_recommendations(predicted_class))
                     
                     # Generate SVM plot
                     st.subheader("Prediction Probabilities:")
@@ -416,7 +416,7 @@ with tab2:
                     input_text = "Sugarcane " + predicted_class + ":" 
 
                     # Display specific recommendations for the predicted class
-                    recommendation = display_recommendations(predicted_class)
+                    recommendation = list(display_recommendations(predicted_class))
                     
                     # Generate SVM plot
                     st.subheader("Prediction Probabilities:")
@@ -519,7 +519,7 @@ with tab2:
                     input_text = "Cauliflower " + predicted_class + ":" 
 
                     # Display specific recommendations for the predicted class
-                    recommendation = display_recommendations(predicted_class)
+                    recommendation = list(display_recommendations(predicted_class))
                     
                     # Generate SVM plot
                     st.subheader("Prediction Probabilities:")

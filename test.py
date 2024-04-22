@@ -80,7 +80,10 @@ def send_result_email(sender_email, sender_password, user_email, predicted_class
     server = smtplib.SMTP(smtp_server, smtp_port)
     server.starttls()
     
-    # Create message container
+    # Log in to the email account
+    server.login(sender_email, sender_password)
+    
+    # Construct the email message
     msg = MIMEMultipart()
     msg['From'] = sender_email
     msg['To'] = user_email
@@ -90,18 +93,23 @@ def send_result_email(sender_email, sender_password, user_email, predicted_class
     body = f"Predicted Disease Class: {predicted_class}\n\nRecommendation: {recommendation}"
     msg.attach(MIMEText(body, 'plain'))
     
-    # Send email
-    try:
-        server = smtplib.SMTP(smtp_server, smtp_port)
-        server.starttls()
-        server.login(sender_email, sender_password)
-        text = msg.as_string()
-        server.sendmail(sender_email, user_email, text)
-        server.quit()
-        print("Email sent successfully!")
-    except Exception as e:
-        print("Failed to send email.")
-        print(e)
+    # Send the email
+    server.send_message(msg)
+    
+    # try:
+    #     server = smtplib.SMTP(smtp_server, smtp_port)
+    #     server.starttls()
+    #     server.login(sender_email, sender_password)
+    #     text = msg.as_string()
+    #     server.sendmail(sender_email, user_email, text)
+    #     server.quit()
+    #     print("Email sent successfully!")
+    # except Exception as e:
+    #     print("Failed to send email.")
+    #     print(e)
+    
+    # Close the connection to the SMTP server
+    server.quit()
 
 # Define recommendations for each class
 recommendations = {

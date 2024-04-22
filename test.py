@@ -204,7 +204,7 @@ with st.sidebar:
     )
 
 with tab1:
-    st.title("Welcome to Crop Health Assessment App",False)
+    st.title("Welcome to Crop Health Assessment App",False, divider='gray')
     
     col1, col2 = st.columns(2)
     col1.image("screenshots/PPrediction1.jpeg")
@@ -236,7 +236,7 @@ with tab1:
     """)
 
 with tab2:
-    st.title("Crop Health Assessment")
+    st.title("Crop Health Assessment", divider='gray')
 
     # selecting method for health assessment
     st.subheader("SELECT A METHOD")
@@ -411,16 +411,31 @@ with tab2:
                     generate_svm_plot(prediction, predicted_class)
 
 with tab3:
-    st.title("Feedback")
+    st.title("Feedback", divider='gray')
 
     st.subheader("Feedback Form")
-    feedback = st.text_area("Share your feedback with us...", help="Let us know how we can improve this app!")
-    submit2 = st.button("Submit Feedback")
 
-    if submit2:
-        if feedback:
+    # Feedback text area
+    feedback_text = st.text_area("Share your feedback with us...", help="Let us know how we can improve this app!")
+
+    # Rating slider
+    st.subheader("Rate Your Experience")
+    rating = st.slider("Rate your experience (1-5)", 1, 5, help="Rate your overall experience using the app.")
+
+    # Feedback category dropdown
+    st.subheader("Select Feedback Category")
+    feedback_category = st.selectbox("Select a feedback category", feedback_categories, help="Choose the category that best describes your feedback.")
+
+    # Submit button
+    submit_feedback = st.button("Submit Feedback")
+
+    if submit_feedback:
+        if feedback_text:
             # Submit feedback to database or log file
             st.success("Thank you for your feedback! We'll use it to improve the app.")
+            # Optionally, you can log the feedback including text, rating, and category
+            # Log feedback to database or file
+            # Example: logger.log_feedback(feedback_text, rating, feedback_category)
         else:
             st.warning("Please provide feedback before submitting.")
 

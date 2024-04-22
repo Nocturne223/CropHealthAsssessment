@@ -116,7 +116,7 @@ recommendations = {
         "Maintain proper spacing between plants to improve air circulation and reduce humidity levels around plants.",
         "Apply neem oil or horticultural oils to the foliage according to label instructions, as they may help suppress viral vectors like aphids."
     ]
-    # Add recommendations for other classes similarly for future developments
+    # Add recommendations for other classes similarly
 }
 
 # Function to display recommendations and predicted class
@@ -164,21 +164,8 @@ def predict_disease(model, image_path, names):
     disease_class = names[disease_index]  # Fetch the class name using the index
     return prediction, disease_class  # Return prediction along with disease class
 
-# Define the tab names
-tabs = ["Dashboard", "Crop Health Assessment", "Feedback"]
-
 # Sidebar content
 with st.sidebar:
-<<<<<<< HEAD
-    # Sidebar Page Navigation
-    st.sidebar.subheader("Sidebar Navigation")
-    for tab in tabs:
-        if st.sidebar.button(tab, key=f"sidebar_{tab}"):
-            st.experimental_set_query_params(tab=tab)
-    
-    # Authors
-=======
->>>>>>> parent of bf14dbf (Sample UI Update)
     st.subheader('About Us', divider='gray')
     st.info(
         """
@@ -191,19 +178,12 @@ with st.sidebar:
         Axel Bert E. Ramos
         """
     )
-    
+
 # Main content
-selected_tab = st.experimental_get_query_params().get("tab", ["Dashboard"])[0]
+tab1, tab2, tab3 = st.tabs(["Dashboard", "Crop Health Assessment", "Feedback"])
 
-# Top navigation tabs
-top_nav = st.empty()
-for tab in tabs:
-    if top_nav.button(tab, key=f"top_nav_{tab}"):
-        selected_tab = tab
-        st.experimental_set_query_params(tab=tab)
-
-if selected_tab == "Dashboard":
-    st.title("Welcome to Crop Health Assessment App", False)
+with tab1:
+    st.title("Welcome to Crop Health Assessment App",False)
     
     col1, col2 = st.columns(2)
     col1.image("screenshots/PPrediction1.jpeg")
@@ -234,7 +214,7 @@ if selected_tab == "Dashboard":
         This app is developed by Christian Jerome S. Detuya, Albert James E. Mangcao, and Axel Bert E. Ramos as part of the Crop Health Assessment project.
     """)
 
-elif selected_tab == "Crop Health Assessment":
+with tab2:
     st.title("Crop Health Assessment")
 
     # selecting method for health assessment
@@ -366,7 +346,7 @@ elif selected_tab == "Crop Health Assessment":
                     st.image(plantpic, pred2, use_column_width=True)
 
                     # Generate and display recommendations
-                    input_text = "Cauliflower " + predicted_class + ":"
+                    input_text = "Cauliflower " + predicted_class + ":" 
 
                     # Display specific recommendations for the predicted class
                     display_recommendations(predicted_class)
@@ -409,7 +389,7 @@ elif selected_tab == "Crop Health Assessment":
                     st.subheader("Prediction Probabilities:")
                     generate_svm_plot(prediction, predicted_class)
 
-elif selected_tab == "Feedback":
+with tab3:
     st.title("Feedback")
 
     st.subheader("Feedback Form")

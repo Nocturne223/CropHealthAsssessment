@@ -88,8 +88,16 @@ def send_result_email(sender_email, sender_password, user_email, predicted_class
     msg['To'] = user_email
     msg['Subject'] = "Crop Health Assessment Result"
     
+    # Format recommendations as a string
+    recommendation_text = "\n".join(recommendations)
+
     # Email body
-    body = f"Predicted Disease Class: {predicted_class}\n\nRecommendation: {recommendation}"
+    body = f"Predicted Disease Class: {predicted_class}\n\n"
+    if recommendations:
+        body += f"Recommendations:\n{recommendation_text}"
+    else:
+        body += "No specific recommendations available for this predicted class."
+        
     msg.attach(MIMEText(body, 'plain'))
     
     # Send the email

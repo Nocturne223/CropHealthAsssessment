@@ -71,7 +71,7 @@ def send_feedback_email(sender_email, sender_password, recipient_email, feedback
     server.quit()
 
 # Define result email function
-def send_result_email(sender_email, sender_password, user_email, predicted_class, recommendation, image_path):
+def send_result_email(sender_email, sender_password, user_email, predicted_class, recommendation):
     # Email configurations
     smtp_server = "smtp-mail.outlook.com"
     smtp_port = 587
@@ -421,7 +421,7 @@ with tab2:
             if send_email_button:
                 if recipient_email:
                     # Call the function to send the result to the provided email
-                    send_result_email(sender_email, sender_password, user_email, predicted_class, recommendation, image_path)
+                    send_result_email(sender_email, sender_password, user_email, predicted_class, recommendation)
                 else:
                     st.warning("Please enter your email address.")    
 
@@ -517,7 +517,7 @@ with tab2:
             if send_email_button:
                 if recipient_email:
                     # Call the function to send the result to the provided email
-                    send_result_email(sender_email, sender_password, user_email, predicted_class, recommendation, image_path)
+                    send_result_email(sender_email, sender_password, user_email, predicted_class, recommendation)
                 else:
                     st.warning("Please enter your email address.")
 

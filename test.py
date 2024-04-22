@@ -524,12 +524,17 @@ with tab2:
                     
                     recommendation = list(display_recommendations(predicted_class))
                     
+                    recom = ""
+                    
+                    for text in recommendation:
+                        recom += text + " "
+                    
                     # Generate SVM plot
                     st.subheader("Prediction Probabilities:")
                     generate_svm_plot(prediction, predicted_class)
                     
                     st.write(predicted_class)
-                    st.write(recommendation)
+                    st.write(recom)
                     
                      # Add email input and send button
                     st.subheader("Send Result to Email")

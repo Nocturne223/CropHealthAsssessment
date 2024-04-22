@@ -167,9 +167,6 @@ def predict_disease(model, image_path, names):
 # Main content
 tab1, tab2, tab3 = st.tabs(["Dashboard", "Crop Health Assessment", "Feedback"])
 
-# Define feedback categories
-feedback_categories = ["User Experience", "Feature Requests", "Bug Reports", "General Comments"]
-
 # Sidebar content
 with st.sidebar:
     st.sidebar.subheader("Help & FAQ", divider='gray')
@@ -414,6 +411,9 @@ with tab2:
                     # Generate SVM plot
                     st.subheader("Prediction Probabilities:")
                     generate_svm_plot(prediction, predicted_class)
+
+# Define feedback categories
+feedback_categories = ["User Experience", "Feature Requests", "Bug Reports", "General Comments"]
 
 with tab3:
     st.title("Feedback")

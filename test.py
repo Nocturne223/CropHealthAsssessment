@@ -111,6 +111,20 @@ def send_result_email(sender_email, sender_password, user_email, predicted_class
         # Close the connection to the SMTP server
         server.quit()
 
+# Function to generate and return recommendations as a string
+def get_recommendations_as_string(predicted_class):
+    recommendations_string = ""
+    recommendations_list = recommendations.get(predicted_class, [])
+    
+    if recommendations_list:
+        recommendations_string += "Recommendations for " + predicted_class + ":\n"
+        for recommendation in recommendations_list:
+            recommendations_string += "- " + recommendation + "\n"
+    else:
+        recommendations_string += "No recommendations found for " + predicted_class + "."
+    
+    return recommendations_string
+
 # Define recommendations for each class
 recommendations = {
     "lettuce_BacterialLeafSpot": [
@@ -524,17 +538,16 @@ with tab2:
                     
                     # recommendation = list(display_recommendations(predicted_class))
                     
-                    recom = ""
                     
-                    for text in recommendations(predicted_class):
-                        recom += text + " "
+                    # Get recommendations as a string
+                    recommendations_string = get_recommendations_as_string(predicted_class)
                     
                     # Generate SVM plot
                     st.subheader("Prediction Probabilities:")
                     generate_svm_plot(prediction, predicted_class)
                     
                     st.write(predicted_class)
-                    st.write(recom)
+                    st.write(recommendations_string)
                     
                      # Add email input and send button
                     st.subheader("Send Result to Email")
@@ -544,7 +557,7 @@ with tab2:
                     if send_email_button:
                         if user_email:
                         # Call the function to send the result to the provided email
-                            send_result_email(sender_email, sender_password, user_email, predicted_class, recom)
+                            send_result_email(sender_email, sender_password, user_email, predicted_class, recommendations_string)
                         else:
                             st.warning("Please enter the recipient email address.")
 

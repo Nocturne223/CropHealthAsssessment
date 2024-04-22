@@ -11,6 +11,7 @@ from sklearn.svm import SVC
 from sklearn.metrics import accuracy_score, precision_score, recall_score, f1_score
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
+from email.mime.image import MIMEImage
 
 
 # Load Models
@@ -67,6 +68,42 @@ def send_feedback_email(sender_email, sender_password, recipient_email, feedback
 
     # Close the connection to the SMTP server
     server.quit()
+
+# Define result email function
+def send_result_email(recipient_email, predicted_class, recommendation, image_path):
+    # Email configurations
+    sender_email = "cha.devteam223@gmail.com"  # Update with your email
+    sender_password = "Touchmenot!23"       # Update with your email password
+    smtp_server = "smtp-mail.outlook.com"
+    smtp_port = 587
+    
+    # Create message container
+    msg = MIMEMultipart()
+    msg['From'] = sender_email
+    msg['To'] = recipient_email
+    msg['Subject'] = "Crop Health Assessment Result"
+    
+    # Email body
+    body = f"Predicted Disease Class: {predicted_class}\n\nRecommendation: {recommendation}"
+    msg.attach(MIMEText(body, 'plain'))
+    
+    # Attach image
+    with open(image_path, 'rb') as f:
+        img = MIMEImage(f.read(), name=image_path)
+        msg.attach(img)
+    
+    # Send email
+    try:
+        server = smtplib.SMTP(smtp_server, smtp_port)
+        server.starttls()
+        server.login(sender_email, sender_password)
+        text = msg.as_string()
+        server.sendmail(sender_email, recipient_email, text)
+        server.quit()
+        print("Email sent successfully!")
+    except Exception as e:
+        print("Failed to send email.")
+        print(e)
 
 # Define recommendations for each class
 recommendations = {
@@ -316,7 +353,7 @@ with tab2:
                     input_text = "Lettuce " + predicted_class + ":" 
 
                     # Display specific recommendations for the predicted class
-                    display_recommendations(predicted_class)
+                    recommendation = display_recommendations(predicted_class)
                     
                     # Generate SVM plot
                     st.subheader("Prediction Probabilities:")
@@ -333,7 +370,7 @@ with tab2:
                     input_text = "Cauliflower " + predicted_class + ":" 
 
                     # Display specific recommendations for the predicted class
-                    display_recommendations(predicted_class)
+                    recommendation = display_recommendations(predicted_class)
                     
                     # Generate SVM plot
                     st.subheader("Prediction Probabilities:")
@@ -350,7 +387,7 @@ with tab2:
                     input_text = "Sugarcane " + predicted_class + ":" 
 
                     # Display specific recommendations for the predicted class
-                    display_recommendations(predicted_class)
+                    recommendation = display_recommendations(predicted_class)
                     
                     # Generate SVM plot
                     st.subheader("Prediction Probabilities:")
@@ -367,11 +404,23 @@ with tab2:
                     input_text = "Pepper " + predicted_class + ":" 
 
                     # Display specific recommendations for the predicted class
-                    display_recommendations(predicted_class)
+                    recommendation = display_recommendations(predicted_class)
                     
                     # Generate SVM plot
                     st.subheader("Prediction Probabilities:")
                     generate_svm_plot(prediction, predicted_class)
+                
+                # Add email input and send button
+                st.subheader("Send Result to Email")
+                recipient_email = st.text_input("Enter your email address", help="Enter the email address where you want to receive the result.")
+                send_email_button = st.button("Send Result to Email")
+
+                if send_email_button:
+                    if recipient_email:
+                        # Call the function to send the result to the provided email
+                        send_result_email(recipient_email, predicted_class, recommendation, image_path)
+                    else:
+                        st.warning("Please enter your email address.")
 
     elif pick == 'Upload':
         st.subheader("Upload Input")
@@ -400,7 +449,7 @@ with tab2:
                     input_text = "Lettuce " + predicted_class + ":"
 
                     # Display specific recommendations for the predicted class
-                    display_recommendations(predicted_class)
+                    recommendation = display_recommendations(predicted_class)
                     
                     # Generate SVM plot
                     st.subheader("Prediction Probabilities:")
@@ -417,7 +466,7 @@ with tab2:
                     input_text = "Cauliflower " + predicted_class + ":" 
 
                     # Display specific recommendations for the predicted class
-                    display_recommendations(predicted_class)
+                    recommendation = display_recommendations(predicted_class)
                     
                     # Generate SVM plot
                     st.subheader("Prediction Probabilities:")
@@ -434,7 +483,7 @@ with tab2:
                     input_text = "Sugarcane " + predicted_class + ":" 
 
                     # Display specific recommendations for the predicted class
-                    display_recommendations(predicted_class)
+                    recommendation = display_recommendations(predicted_class)
                     
                     # Generate SVM plot
                     st.subheader("Prediction Probabilities:")
@@ -451,11 +500,23 @@ with tab2:
                     input_text = "Pepper " + predicted_class + ":" 
 
                     # Display specific recommendations for the predicted class
-                    display_recommendations(predicted_class)
+                    recommendation = display_recommendations(predicted_class)
                     
                     # Generate SVM plot
                     st.subheader("Prediction Probabilities:")
                     generate_svm_plot(prediction, predicted_class)
+                
+                # Add email input and send button
+                st.subheader("Send Result to Email")
+                recipient_email = st.text_input("Enter your email address", help="Enter the email address where you want to receive the result.")
+                send_email_button = st.button("Send Result to Email")
+
+                if send_email_button:
+                    if recipient_email:
+                        # Call the function to send the result to the provided email
+                        send_result_email(recipient_email, predicted_class, recommendation, image_path)
+                    else:
+                        st.warning("Please enter your email address.")
 
 # Define feedback categories
 feedback_categories = ["User Experience", "Feature Requests", "Bug Reports", "General Comments"]

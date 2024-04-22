@@ -32,6 +32,7 @@ folder_path = "saved_images"
 sender_email = "cha.devteam223@gmail.com"
 sender_password = "Touchmenot!23"  # Replace with the actual password
 recipient_email = "e.albert223@gmail.com"
+user_email = " "
 feedback_text = "Feedback"
 rating = 5
 feedback_category = "User Interface"
@@ -70,12 +71,14 @@ def send_feedback_email(sender_email, sender_password, recipient_email, feedback
     server.quit()
 
 # Define result email function
-def send_result_email(recipient_email, predicted_class, recommendation, image_path):
+def send_result_email(sender_email, sender_password, user_email, predicted_class, recommendation, image_path):
     # Email configurations
-    sender_email = "cha.devteam223@gmail.com"  # Update with your email
-    sender_password = "Touchmenot!23"       # Update with your email password
     smtp_server = "smtp-mail.outlook.com"
     smtp_port = 587
+    
+    # Create a secure connection to the SMTP server
+    server = smtplib.SMTP(smtp_server, smtp_port)
+    server.starttls()
     
     # Create message container
     msg = MIMEMultipart()
@@ -409,18 +412,18 @@ with tab2:
                     # Generate SVM plot
                     st.subheader("Prediction Probabilities:")
                     generate_svm_plot(prediction, predicted_class)
-                
-                # Add email input and send button
-                st.subheader("Send Result to Email")
-                recipient_email = st.text_input("Enter your email address", help="Enter the email address where you want to receive the result.")
-                send_email_button = st.button("Send Result to Email")
+            
+            # Add email input and send button
+            st.subheader("Send Result to Email")
+            recipient_email = st.text_input("Enter your email address", help="Enter the email address where you want to receive the result.")
+            send_email_button = st.button("Send Result to Email")
 
-                if send_email_button:
-                    if recipient_email:
-                        # Call the function to send the result to the provided email
-                        send_result_email(recipient_email, predicted_class, recommendation, image_path)
-                    else:
-                        st.warning("Please enter your email address.")
+            if send_email_button:
+                if recipient_email:
+                    # Call the function to send the result to the provided email
+                    send_result_email(sender_email, sender_password, user_email, predicted_class, recommendation, image_path)
+                else:
+                    st.warning("Please enter your email address.")    
 
     elif pick == 'Upload':
         st.subheader("Upload Input")
@@ -506,17 +509,17 @@ with tab2:
                     st.subheader("Prediction Probabilities:")
                     generate_svm_plot(prediction, predicted_class)
                 
-                # Add email input and send button
-                st.subheader("Send Result to Email")
-                recipient_email = st.text_input("Enter your email address", help="Enter the email address where you want to receive the result.")
-                send_email_button = st.button("Send Result to Email")
+            # Add email input and send button
+            st.subheader("Send Result to Email")
+            recipient_email = st.text_input("Enter your email address", help="Enter the email address where you want to receive the result.")
+            send_email_button = st.button("Send Result to Email")
 
-                if send_email_button:
-                    if recipient_email:
-                        # Call the function to send the result to the provided email
-                        send_result_email(recipient_email, predicted_class, recommendation, image_path)
-                    else:
-                        st.warning("Please enter your email address.")
+            if send_email_button:
+                if recipient_email:
+                    # Call the function to send the result to the provided email
+                    send_result_email(sender_email, sender_password, user_email, predicted_class, recommendation, image_path)
+                else:
+                    st.warning("Please enter your email address.")
 
 # Define feedback categories
 feedback_categories = ["User Experience", "Feature Requests", "Bug Reports", "General Comments"]

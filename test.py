@@ -27,37 +27,46 @@ Pepper_names = ["pepper_Healthy", "pepper_CercosporaLeafSpot", "pepper_Fusarium"
 
 folder_path = "saved_images"
 
-def send_feedback_email(feedback_text, rating, category):
-    # Email configuration
-    sender_email = "cha.devteam223@gmail.com"  # Your email address
-    sender_password = "touchmenot"   # Your email password
-    receiver_email = "nutcracker223@gmail.com"  # Receiver's email address
+# Assuming you have defined the feedback categories and retrieved the sender's email and password
+sender_email = "cha.devteam223@gmail.com"
+sender_password = "touchmenot"  # Replace with the actual password
+recipient_email = "nutcracker2233@gmail.com"
+feedback_text = "Feedback"
+rating = 5
+feedback_category = "User Interface"
 
-    # Construct email message
-    message = MIMEMultipart()
-    message["From"] = sender_email
-    message["To"] = receiver_email
-    message["Subject"] = "Feedback from Crop Health Assessment App"
+# Define feedback email function
+def send_feedback_email(sender_email, sender_password, recipient_email, feedback_text, rating, feedback_category):
+    # Set up the SMTP server
+    smtp_server = "smtp.gmail.com"
+    smtp_port = 587
 
-    # Feedback content
-    feedback_content = f"""
-    Feedback: {feedback_text}
+    # Create a secure connection to the SMTP server
+    server = smtplib.SMTP(smtp_server, smtp_port)
+    server.starttls()
+
+    # Log in to the email account
+    server.login(sender_email, sender_password)
+
+    # Construct the email message
+    msg = MIMEMultipart()
+    msg['From'] = sender_email
+    msg['To'] = recipient_email
+    msg['Subject'] = "Feedback Submission"
+
+    # Compose the email body
+    body = f"""
+    Feedback Text: {feedback_text}
     Rating: {rating}
-    Category: {category}
+    Feedback Category: {feedback_category}
     """
+    msg.attach(MIMEText(body, 'plain'))
 
-    # Attach feedback content to the email body
-    message.attach(MIMEText(feedback_content, "plain"))
+    # Send the email
+    server.send_message(msg)
 
-    # Send email
-    try:
-        with smtplib.SMTP("smtp.gmail.com", 587) as server:
-            server.starttls()
-            server.login(sender_email, sender_password)
-            server.sendmail(sender_email, receiver_email, message.as_string())
-            print("Feedback email sent successfully!")
-    except Exception as e:
-        print(f"Error sending feedback email: {e}")
+    # Close the connection to the SMTP server
+    server.quit()
 
 # Define recommendations for each class
 recommendations = {
@@ -475,12 +484,8 @@ with tab3:
         if feedback_text:
             # Submit feedback to database or log file
             st.success("Thank you for your feedback! We'll use it to improve the app.")
-            # Optionally, you can log the feedback including text, rating, and category
-            # Log feedback to database or file
-            # Example: logger.log_feedback(feedback_text, rating, feedback_category)
-            
-            # Send feedback email
-            send_feedback_email(feedback_text, rating, feedback_category)
+            # Send feedback via email
+            send_feedback_email(sender_email, sender_password, recipient_email, feedback_text, rating, feedback_category)
         else:
             st.warning("Please provide feedback before submitting.")
 

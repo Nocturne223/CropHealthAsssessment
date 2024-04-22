@@ -490,7 +490,7 @@ with tab2:
                     input_text = "Lettuce " + predicted_class + ":"
 
                     # Display specific recommendations for the predicted class
-                    recommendation = display_recommendations(predicted_class)
+                    recommendation = list(display_recommendations(predicted_class))
                     
                     # Generate SVM plot
                     st.subheader("Prediction Probabilities:")

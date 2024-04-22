@@ -83,17 +83,12 @@ def send_result_email(sender_email, sender_password, user_email, predicted_class
     # Create message container
     msg = MIMEMultipart()
     msg['From'] = sender_email
-    msg['To'] = recipient_email
+    msg['To'] = user_email
     msg['Subject'] = "Crop Health Assessment Result"
     
     # Email body
     body = f"Predicted Disease Class: {predicted_class}\n\nRecommendation: {recommendation}"
     msg.attach(MIMEText(body, 'plain'))
-    
-    # Attach image
-    with open(image_path, 'rb') as f:
-        img = MIMEImage(f.read(), name=image_path)
-        msg.attach(img)
     
     # Send email
     try:
@@ -101,7 +96,7 @@ def send_result_email(sender_email, sender_password, user_email, predicted_class
         server.starttls()
         server.login(sender_email, sender_password)
         text = msg.as_string()
-        server.sendmail(sender_email, recipient_email, text)
+        server.sendmail(sender_email, user_email, text)
         server.quit()
         print("Email sent successfully!")
     except Exception as e:

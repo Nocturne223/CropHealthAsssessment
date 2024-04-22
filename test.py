@@ -519,7 +519,9 @@ with tab2:
                     input_text = "Cauliflower " + predicted_class + ":" 
 
                     # Display specific recommendations for the predicted class
-                    recommendation = list(display_recommendations(predicted_class))
+                    display_recommendations(predicted_class)
+                    
+                    recommendation = recommendations.get(predicted_class, [])
                     
                     # Generate SVM plot
                     st.subheader("Prediction Probabilities:")

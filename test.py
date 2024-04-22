@@ -29,8 +29,8 @@ folder_path = "saved_images"
 
 # Assuming you have defined the feedback categories and retrieved the sender's email and password
 sender_email = "cha.devteam223@gmail.com"
-sender_password = "touchmenot"  # Replace with the actual password
-recipient_email = "nutcracker2233@gmail.com"
+sender_password = "Touchmenot!23"  # Replace with the actual password
+recipient_email = "e.albert223@gmail.com"
 feedback_text = "Feedback"
 rating = 5
 feedback_category = "User Interface"
@@ -38,7 +38,7 @@ feedback_category = "User Interface"
 # Define feedback email function
 def send_feedback_email(sender_email, sender_password, recipient_email, feedback_text, rating, feedback_category):
     # Set up the SMTP server
-    smtp_server = "smtp.gmail.com"
+    smtp_server = "smtp-mail.outlook.com"
     smtp_port = 587
 
     # Create a secure connection to the SMTP server

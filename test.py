@@ -166,8 +166,8 @@ def predict_disease(model, image_path, names):
 
 # Sidebar content
 with st.sidebar:
-    # Main content
-    st.sidebar.subheader("Tabs")
+    # Sidebar Page Navigation
+    st.subheader('Pages', divider='gray')
     if st.sidebar.button("Dashboard"):
         tab1 = True
         tab2 = False

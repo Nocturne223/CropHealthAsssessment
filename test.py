@@ -92,12 +92,18 @@ def send_result_email(sender_email, sender_password, user_email, predicted_class
         # Format recommendations as a string
         recommendation_text = "\n".join(recommendations)
 
+        # # Email body
+        # body = f"Predicted Disease Class: {predicted_class}\n\n"
+        # if recommendations:
+        #     body += f"Recommendations:\n{recommendation_text}"
+        # else:
+        #     body += "No specific recommendations available for this predicted class."
+            
         # Email body
-        body = f"Predicted Disease Class: {predicted_class}\n\n"
-        if recommendations:
-            body += f"Recommendations:\n{recommendation_text}"
-        else:
-            body += "No specific recommendations available for this predicted class."
+        body = f"""
+        Predicted Disease Class: {predicted_class}\n\n"
+        Recommendations:\n{recommendation_text}
+        """
             
         msg.attach(MIMEText(body, 'plain'))
         
@@ -543,8 +549,8 @@ with tab2:
                     st.subheader("Prediction Probabilities:")
                     generate_svm_plot(prediction, predicted_class)
                     
-                    # st.write(predicted_class)
-                    # st.write(recommendations_string)
+                    st.write(predicted_class)
+                    st.write(recommendations_string)
                     
                      # Add email input and send button
                     st.subheader("Send Result to Email")

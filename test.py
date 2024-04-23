@@ -90,12 +90,12 @@ def send_result_email(sender_email, sender_password, user_email, predicted_class
         msg['Subject'] = "Crop Health Assessment Result"
         
         # Format recommendations as a string
-        # recommendation_text = "\n".join(recommendations)
+        recommendation_text = "\n".join(recommendations)
 
         # Email body
         body = f"Predicted Disease Class: {predicted_class}\n\n"
         if recommendations:
-            body += f"Recommendations:\n{recommendations}"
+            body += f"Recommendations:\n{recommendation_text}"
         else:
             body += "No specific recommendations available for this predicted class."
             
@@ -548,7 +548,7 @@ with tab2:
                     
                      # Add email input and send button
                     st.subheader("Send Result to Email")
-                    user_email = st.text_input("Enter recipient email address", help="Enter the email address where you want to receive the result.")
+                    user1_email = st.text_input("Enter recipient email address", help="Enter the email address where you want to receive the result.")
                     send_email_button = st.button("Send Result to Email")
 
                     if send_email_button:
@@ -556,7 +556,7 @@ with tab2:
                             st.warning("Please enter the recipient email address.")
                         else:
                             # Call the function to send the result to the provided email
-                            send_result_email(sender_email, sender_password, user_email, predicted_class, recommendations_string)
+                            send_result_email(sender_email, sender_password, user1_email, predicted_class, recommendations_string)
                             
 
                 elif select == 'Sugarcane':

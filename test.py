@@ -92,18 +92,12 @@ def send_result_email(sender_email, sender_password, user_email, predicted_class
         # Format recommendations as a string
         recommendation_text = "\n".join(recommendations)
 
-        # # Email body
-        # body = f"Predicted Disease Class: {predicted_class}\n\n"
-        # if recommendations:
-        #     body += f"Recommendations:\n{recommendation_text}"
-        # else:
-        #     body += "No specific recommendations available for this predicted class."
-            
         # Email body
-        body = f"""
-        Predicted Disease Class: {predicted_class}\n\n"
-        Recommendations:\n{recommendation_text}
-        """
+        body = f"Predicted Disease Class: {predicted_class}\n\n"
+        if recommendations:
+            body += f"Recommendations:\n{recommendation_text}"
+        else:
+            body += "No specific recommendations available for this predicted class."
             
         msg.attach(MIMEText(body, 'plain'))
         
@@ -116,20 +110,6 @@ def send_result_email(sender_email, sender_password, user_email, predicted_class
     finally:
         # Close the connection to the SMTP server
         server.quit()
-
-# Function to generate and return recommendations as a string
-def get_recommendations_as_string(predicted_class):
-    recommendations_string = ""
-    recommendations_list = recommendations.get(predicted_class, [])
-    
-    if recommendations_list:
-        recommendations_string += "Recommendations for " + predicted_class + ":\n"
-        for recommendation in recommendations_list:
-            recommendations_string += "- " + recommendation + "\n"
-    else:
-        recommendations_string += "No recommendations found for " + predicted_class + "."
-    
-    return recommendations_string
 
 # Define recommendations for each class
 recommendations = {
@@ -273,7 +253,7 @@ def predict_disease(model, image_path, names):
     return prediction, disease_class  # Return prediction along with disease class
 
 # Main content
-tab1, tab2, tab3 = st.tabs(["Dashboard", "Crop Health Assessment", "Feedback"])
+tab1, tab2, tab3, tab4 = st.tabs(["Dashboard", "Crop Health Assessment", "Feedback", "About Us"])
 
 # Sidebar content
 with st.sidebar:
@@ -542,28 +522,26 @@ with tab2:
                     # Display specific recommendations for the predicted class
                     display_recommendations(predicted_class)
                     
-                    # Get recommendations as a string
-                    recommendations_string = get_recommendations_as_string(predicted_class)
+                    recommendation = list(display_recommendations(predicted_class))
                     
                     # Generate SVM plot
                     st.subheader("Prediction Probabilities:")
                     generate_svm_plot(prediction, predicted_class)
                     
                     st.write(predicted_class)
-                    st.write(recommendations_string)
+                    st.write(recommendation)    
                     
                      # Add email input and send button
                     st.subheader("Send Result to Email")
-                    user1_email = st.text_input("Enter recipient email address", help="Enter the email address where you want to receive the result.")
+                    user_email = st.text_input("Enter recipient email address", help="Enter the email address where you want to receive the result.")
                     send_email_button = st.button("Send Result to Email")
 
                     if send_email_button:
-                        if not user_email:
-                            st.warning("Please enter the recipient email address.")
+                        if user_email:
+                        # Call the function to send the result to the provided email
+                            send_result_email(sender_email, sender_password, user_email, predicted_class, recommendation)
                         else:
-                            # Call the function to send the result to the provided email
-                            send_result_email(sender_email, sender_password, user1_email, predicted_class, recommendations_string)
-                            
+                            st.warning("Please enter the recipient email address.")
 
                 elif select == 'Sugarcane':
                     # Predict Sugarcane disease
@@ -654,6 +632,38 @@ with tab3:
             send_feedback_email(sender_email, sender_password, recipient_email, feedback_text, rating, feedback_category)
         else:
             st.warning("Please provide feedback before submitting.")
+
+with tab4:
+    st.title("About Us")
+    st.subheader("", divider='gray')
+    
+    st.write("""
+        Welcome to the Crop Health Assessment App! Developed by a team of dedicated individuals passionate about technology and agriculture, our goal is to revolutionize the way farmers and agricultural enthusiasts assess and manage crop health.
+             
+        ### Our Mission
+
+        At Crop Health Assessment, our mission is to empower farmers and crop enthusiasts with advanced machine learning technology to make informed decisions about crop health management. We aim to bridge the gap between cutting-edge technology and practical agricultural applications, ensuring that users can easily access and utilize the latest advancements in crop health assessment.
+
+        ### Our Vision
+        
+        We envision a future where every farmer has access to advanced technology that simplifies crop health assessment and management. Through continuous innovation and collaboration with agricultural experts, we strive to create solutions that empower farmers, improve crop yields, and promote sustainable agriculture practices.
+        
+        ### Technologies Used
+
+        The Crop Health Assessment App leverages a combination of modern technologies to deliver a seamless user experience and accurate crop health assessment:
+
+        - Machine Learning: Our app utilizes machine learning models trained on extensive datasets of crop images to accurately identify and diagnose crop diseases.
+        - Streamlit: We use Streamlit, a Python library, to develop interactive and user-friendly web applications for crop health assessment.
+        - Keras and TensorFlow: We employ Keras, a high-level neural networks API, and TensorFlow, an open-source machine learning framework, for developing and training our deep learning models.
+        - Python: The entire application is built using Python, a versatile and powerful programming language known for its simplicity and readability.
+        - PIL (Python Imaging Library): PIL is used for image preprocessing tasks such as resizing and normalization, ensuring that input images are suitable for model prediction.
+        - Matplotlib and NumPy: Matplotlib and NumPy are used for data visualization and numerical computations, respectively, enhancing the analysis and presentation of crop health assessment results.
+
+        ### Get in Touch
+
+        Have questions, feedback, or ideas for collaboration? We'd love to hear from you! Feel free to reach out to us at [cha.devteam223@gmail.com](mailto:cha.devteam223@gmail.com) and join us on our mission to revolutionize crop health assessment.
+
+    """)
 
 # Footer
 st.markdown(

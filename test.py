@@ -82,44 +82,43 @@ def send_result_email(sender_email, sender_password, user_email, predicted_class
     # Create a secure connection to the SMTP server
     server = smtplib.SMTP(smtp_server, smtp_port)
     server.starttls()
+        
+    # Log in to the email account
+    server.login(sender_email, sender_password)
     
-    try:
-        # Log in to the email account
-        server.login(sender_email, sender_password)
+    # Construct the email message
+    msg = MIMEMultipart()
+    msg['From'] = sender_email
+    msg['To'] = user_email
+    msg['Subject'] = "Crop Health Assessment Result"
+    
+    body = f"""
+    
+    Predicted Disease Class: {predicted_class}\n\n
+    Recommendations:\n{recommendations}
+    
+    """
         
-        # Construct the email message
-        msg = MIMEMultipart()
-        msg['From'] = sender_email
-        msg['To'] = user_email
-        msg['Subject'] = "Crop Health Assessment Result"
-        
-        # Format recommendations as a string
-        recommendation_text = "\n".join(recommendations)
-
-        # # Email body
-        # body = f"Predicted Disease Class: {predicted_class}\n\n"
-        # if recommendations:
-        #     body += f"Recommendations:\n{recommendation_text}"
-        # else:
-        #     body += "No specific recommendations available for this predicted class."
-            
-        # Email body
-        body = f"""
-        Predicted Disease Class: {predicted_class}\n\n"
-        Recommendations:\n{recommendation_text}
-        """
-            
-        msg.attach(MIMEText(body, 'plain'))
-        
-        # Send the email
-        server.send_message(msg)
-        st.success("Result sent successfully!")
-    except Exception as e:
-        st.error("Failed to send result email.")
-        st.error(str(e))
-    finally:
-        # Close the connection to the SMTP server
-        server.quit()
+    
+    msg.attach(MIMEText(body, 'plain'))
+    
+    # Send the email
+    server.send_message(msg)
+    st.success("Result sent successfully!")
+    server.quit()
+    
+def get_recommendations_as_string(predicted_class):
+    recommendations_string = ""
+    recommendations_list = recommendations.get(predicted_class, [])
+    
+    if recommendations_list:
+        recommendations_string += "Recommendations for " + predicted_class + ":\n"
+        for recommendation in recommendations_list:
+            recommendations_string += "- " + recommendation + "\n"
+    else:
+        recommendations_string += "No recommendations found for " + predicted_class + "."
+    
+    return recommendations_string
 
 # Define recommendations for each class
 recommendations = {
@@ -507,29 +506,17 @@ with tab2:
                     # Display specific recommendations for the predicted class
                     display_recommendations(predicted_class)
                     
-                    # Get recommendations as a string
-                    recommendations_string = get_recommendations_as_string(predicted_class)
-                    
                     # Generate SVM plot
                     st.subheader("Prediction Probabilities:")
                     generate_svm_plot(prediction, predicted_class)
-                    
-                    st.write(predicted_class)
-                    st.write(recommendations_string)
-                    
-                     # Add email input and send button
-                    st.subheader("Send Result to Email")
-                    user1_email = st.text_input("Enter recipient email address", help="Enter the email address where you want to receive the result.")
-                    send_email_button = st.button("Send Result to Email")
+    
+                    recommendation = get_recommendations_as_string(predicted_class)
 
-                    if send_email_button:
-                        if not user_email:
-                            st.warning("Please enter the recipient email address.")
-                        else:
-                            # Call the function to send the result to the provided email
-                            send_result_email(sender_email, sender_password, user1_email, predicted_class, recommendations_string)
-                            
-
+                    if not user_email == "":
+                    # Call the function to send the result to the provided email
+                        send_result_email(sender_email, sender_password, user_email, predicted_class, recommendation)
+                        st.success("Results sent via Email.")
+                        
                 elif select == 'Sugarcane':
                     # Predict Sugarcane disease
                     image_path = plantpic

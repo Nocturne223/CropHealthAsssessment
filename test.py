@@ -328,10 +328,7 @@ with tab1:
 
         ## Method
         You can either upload an image from your device or use your device's camera to capture an image directly.
-
-        ## About Us
-        This app is developed by Christian Jerome S. Detuya, Albert James E. Mangcao, and Axel Bert E. Ramos as part of the Crop Health Assessment project.
-    """)
+ """)
 
 with tab2:
     st.title("Crop Health Assessment")

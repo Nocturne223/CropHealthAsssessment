@@ -338,7 +338,7 @@ with tab2:
     st.title("Crop Health Assessment")
     st.subheader("", divider='gray')
 
-    # selecting method for health assessment
+    # selecting method for health assessments
     st.subheader("SELECT A METHOD")
     pick = st.selectbox("Select Method", ('Upload', 'Camera'), label_visibility="hidden")
 

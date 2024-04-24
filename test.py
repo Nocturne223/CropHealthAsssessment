@@ -14,10 +14,10 @@ from email.mime.text import MIMEText
 from email.mime.image import MIMEImage
 
 # Load Models
-model1 = load_model('official-models/LettuceModel.h5')  # saved model from training
-model2 = load_model('official-models/CauliflowerModel.h5')  # saved model from training
-model3 = load_model('official-models/SugarcaneModel-1.h5')  # saved model from training
-model4 = load_model('official-models/PepperModel.h5')  # saved model from training
+model1 = load_model('official-models/LettuceModel-2.h5')  # saved model from training
+model2 = load_model('official-models/CauliflowerModel-2.h5')  # saved model from training
+model3 = load_model('official-models/SugarcaneModel-2.h5')  # saved model from training
+model4 = load_model('official-models/PepperModel-2.h5')  # saved model from training
 
 # Define plant class names
 Lettuce_names = ["lettuce_BacterialLeafSpot", "lettuce_BotrytisCrownRot", "lettuce_DownyMildew", "lettuce_Healthy"]

@@ -94,7 +94,7 @@ def send_result_email(sender_email, sender_password, user_email, image_path, pre
     
     body = f"""
     
-    File Name:  {image_path}\n\n
+    File Name:  {image_path.name}\n\n
     Predicted Disease Class: {predicted_class}\n\n
     Recommendations:\n{recommendations}
     

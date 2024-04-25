@@ -39,7 +39,6 @@ feedback_category = "User Interface"
 # Define Variables Outside conditions
 predicted_class = ""
 recommendations_string = ""
-file_name = ""
 
 # Define feedback email function
 def send_feedback_email(sender_email, sender_password, recipient_email, feedback_text, rating, feedback_category):
@@ -75,7 +74,7 @@ def send_feedback_email(sender_email, sender_password, recipient_email, feedback
     server.quit()
 
 # Define result email function
-def send_result_email(sender_email, sender_password, user_email, file_name, predicted_class, recommendations):
+def send_result_email(sender_email, sender_password, user_email, image_path, predicted_class, recommendations):
     # Email configurations
     smtp_server = "smtp.gmail.com"
     smtp_port = 587
@@ -95,7 +94,7 @@ def send_result_email(sender_email, sender_password, user_email, file_name, pred
     
     body = f"""
     
-    File Name:  {file_name}\n\n
+    File Name:  {image_path}\n\n
     Predicted Disease Class: {predicted_class}\n\n
     Recommendations:\n{recommendations}
     
@@ -377,7 +376,7 @@ with tab2:
 
                     if not user_email == "":
                     # Call the function to send the result to the provided email
-                        send_result_email(sender_email, sender_password, user_email, file_name, predicted_class, recommendation)
+                        send_result_email(sender_email, sender_password, user_email, image_path, predicted_class, recommendation)
                         st.success("Results sent via Email.")
                         
                 elif select == 'Cauliflower':
@@ -401,7 +400,7 @@ with tab2:
 
                     if not user_email == "":
                     # Call the function to send the result to the provided email
-                        send_result_email(sender_email, sender_password, user_email, file_name, predicted_class, recommendation)
+                        send_result_email(sender_email, sender_password, user_email, image_path, predicted_class, recommendation)
                         st.success("Results sent via Email.")
                         
                 elif select == 'Sugarcane':
@@ -449,7 +448,7 @@ with tab2:
 
                     if not user_email == "":
                     # Call the function to send the result to the provided email
-                        send_result_email(sender_email, sender_password, user_email, file_name, predicted_class, recommendation)
+                        send_result_email(sender_email, sender_password, user_email, image_path, predicted_class, recommendation)
                         st.success("Results sent via Email.")    
 
     elif pick == 'Upload':
@@ -513,7 +512,7 @@ with tab2:
 
                     if not user_email == "":
                     # Call the function to send the result to the provided email
-                        send_result_email(sender_email, sender_password, user_email, file_name, predicted_class, recommendation)
+                        send_result_email(sender_email, sender_password, user_email, image_path, predicted_class, recommendation)
                         st.success("Results sent via Email.")
                         
                 elif select == 'Sugarcane':

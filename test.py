@@ -424,7 +424,7 @@ with tab2:
 
                     if not user_email == "":
                     # Call the function to send the result to the provided email
-                        send_result_email(sender_email, sender_password, user_email, predicted_class, recommendation)
+                        send_result_email(sender_email, sender_password, user_email, image_path, predicted_class, recommendation)
                         st.success("Results sent via Email.")
 
                 elif select == 'Pepper':
@@ -488,7 +488,7 @@ with tab2:
 
                     if not user_email == "":
                     # Call the function to send the result to the provided email
-                        send_result_email(sender_email, sender_password, user_email, predicted_class, recommendation)
+                        send_result_email(sender_email, sender_password, user_email, image_path, predicted_class, recommendation)
                         st.success("Results sent via Email.")
                         
                 elif select == 'Cauliflower':
@@ -536,7 +536,7 @@ with tab2:
 
                     if not user_email == "":
                     # Call the function to send the result to the provided email
-                        send_result_email(sender_email, sender_password, user_email, predicted_class, recommendation)
+                        send_result_email(sender_email, sender_password, user_email, image_path, predicted_class, recommendation)
                         st.success("Results sent via Email.")
                         
                 elif select == 'Pepper':
@@ -560,7 +560,7 @@ with tab2:
 
                     if not user_email == "":
                     # Call the function to send the result to the provided email
-                        send_result_email(sender_email, sender_password, user_email, predicted_class, recommendation)
+                        send_result_email(sender_email, sender_password, user_email, image_path, predicted_class, recommendation)
                         st.success("Results sent via Email.")        
 
 

@@ -74,7 +74,7 @@ def send_feedback_email(sender_email, sender_password, recipient_email, feedback
     server.quit()
 
 # Define result email function
-def send_result_email(sender_email, sender_password, user_email, image_path, predicted_class, recommendations):
+def send_result_email(sender_email, sender_password, user_email, file_name, predicted_class, recommendations):
     # Email configurations
     smtp_server = "smtp.gmail.com"
     smtp_port = 587
@@ -94,7 +94,7 @@ def send_result_email(sender_email, sender_password, user_email, image_path, pre
     
     body = f"""
     
-    File Name:  {image_path}\n\n
+    File Name:  {file_name}\n\n
     Predicted Disease Class: {predicted_class}\n\n
     Recommendations:\n{recommendations}
     
